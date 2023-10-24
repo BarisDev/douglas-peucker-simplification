@@ -1,0 +1,31 @@
+<div class="d-flex align-items-center justify-content-between">
+    <div [style]="'height: ' + heightInPixels + 'px;'" style="width: 50%; " 
+    leaflet 
+    [leafletOptions]="options"
+    (leafletMapReady)="onMapReady($event)"
+    (leafletMapZoomEnd)="zoomend()"
+    >
+        <div *ngIf="firstLine" [leafletLayer]="firstLine"> </div>
+        <div *ngIf="lastLine" [leafletLayer]="lastLine"> </div>
+    </div>
+    <!--span class="btn btn-dark btn-sm"> {{distance}} metre </span-->
+    <div class="flex-column mx-auto" style="font-size: 40px;">
+        <div class="mb-2">
+            <label for="customRange1" class="form-label"> Tölerans Değeri: {{tolerance}} </label>
+            <input type="range" class="form-range" id="customRange1" min="0" [max]="100" step=".05" value=".5" [(ngModel)]="tolerance" (ngModelChange)="calculate()">
+        </div>
+
+        <div class="mb-2">
+            <span> Zoom Seviyesi: {{zoom}} </span>
+        </div>
+        <div class="mb-2">
+            <span *ngIf="drawnLine.length > 0"> Seçilen Nokta Sayısı: {{drawnLine.length}}</span>
+        </div>
+        <div class="mb-2">
+            <span *ngIf="finalLine.length > 0"> Son Durumdaki Nokta Sayısı: {{finalLine.length}} </span>
+        </div>
+        <div class="mb-2">
+            <span *ngIf="difference > 0"> {{difference}} adet nokta kaldırıldı. (% {{((difference / drawnLine.length) * 100).toFixed(2)}} ) </span>
+        </div>
+    </div>
+</div>
